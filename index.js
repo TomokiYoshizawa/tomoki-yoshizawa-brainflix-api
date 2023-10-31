@@ -1,11 +1,13 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 
 const videosRoute = require("./routes/videos");
 
 const PORT = 8083;
 
 app.use(express.json());
+app.use(cors());
 
 app.use("/videos", videosRoute);
 
