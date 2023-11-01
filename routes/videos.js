@@ -9,11 +9,6 @@ router.get("/", (req, res) => {
   res.send(videos);
 });
 
-// router.get("/videos", (req, res) => {
-//   console.log("videos GET made it to server!");
-//   res.send("video GET req is received");
-// });
-
 router.get("/:id", (req, res) => {
   const { id } = req.params;
   console.log(typeof id);
