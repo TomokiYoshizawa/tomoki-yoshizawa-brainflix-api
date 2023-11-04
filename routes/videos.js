@@ -3,12 +3,24 @@ const router = express.Router();
 const { v4: uuidv4 } = require("uuid");
 
 const fs = require("fs");
-
+// to get a video list
 router.get("/", (req, res) => {
   const videosJSON = fs.readFileSync("./data/videos.json");
   const videos = JSON.parse(videosJSON);
-  res.send(videos);
+  const videoList = videos.map((video) => {
+    return {
+      id: video.id,
+      title: video.title,
+      channel: video.channel,
+      image: `http://localhost:8083/${video.image}`,
+    };
+  });
+  res.send(videoList);
+
+  console.log(videoList);
 });
+
+// to get a sinlge video
 
 router.get("/:id", (req, res) => {
   const { id } = req.params;
@@ -26,6 +38,7 @@ router.get("/:id", (req, res) => {
   }
 });
 
+// to post a single video
 router.post("/", (req, res) => {
   const videosJSON = fs.readFileSync("./data/videos.json");
 
@@ -36,12 +49,6 @@ router.post("/", (req, res) => {
     title: req.body.title,
     channel: "Tomoki Smokes",
     description: req.body.description,
-    image: "default.jpeg",
-    views: "3,092,284",
-    likes: "75,985",
-    duration: "4:20",
-    timestamp: 1632344461000,
-    commnets: [],
   };
   console.log(newVideo);
 
